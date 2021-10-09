@@ -1,7 +1,8 @@
+const User = require('../models/user');
 
 module.exports = (sequelize, DataTypes) => {
   const Profile = sequelize.define('Profile', {          
-    application_num : DataTypes.INTEGER,           
+    application_num : DataTypes.STRING,           
     jobTitle        : DataTypes.STRING,            
     current_company : DataTypes.STRING,       
     industry        : DataTypes.STRING,            
@@ -10,12 +11,12 @@ module.exports = (sequelize, DataTypes) => {
     university      : DataTypes.STRING,            
     date_completed  : DataTypes.STRING,            
     nationality     : DataTypes.STRING,            
-    skills          : DataTypes.STRING,            
-    userId          : DataTypes.INTEGER  
+    skills          : DataTypes.STRING,
+    userId:DataTypes.INTEGER
 
   }, {});
   Profile.associate = function(models) {
-    // associations can be defined here
+    // User.belongsTo(Profile, {foreignKey: 'id',targetKey: 'userId'});
   };
   return Profile;
 };

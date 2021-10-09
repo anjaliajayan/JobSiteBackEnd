@@ -49,10 +49,11 @@ function signUp(req, res){
 
 function login(req, res){
     models.User.findOne({where:{email: req.body.email}}).then(user => {
-        // console.log("user_____________",user);
+        console.log("user_____________",user);
         if(user === null){
             res.status(401).json({
                 message: "Invalid credentials!",
+                status:false
             });
         }else{
             bcryptjs.compare(req.body.password, user.password, function(err, result){
@@ -63,7 +64,7 @@ function login(req, res){
                         name:user.name
                     }, process.env.JWT_KEY, function(err, token){
                         res.status(200).json({
-                            msg: "Authentication successful!",
+                            message: "Authentication successful!",
                             status:true,
                             code:200,
                             success:true,
@@ -76,6 +77,7 @@ function login(req, res){
                 }else{
                     res.status(401).json({
                         message: "Invalid credentials!",
+                        status:false
                     });
                 }
             });
@@ -83,6 +85,7 @@ function login(req, res){
     }).catch(error => {
         res.status(500).json({
             message: "Something went wrong!",
+            status:false
         });
     });
 }
